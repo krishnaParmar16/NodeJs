@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Welcome to ejs👋🏻</h2>
+
+    <form action="/addData" method="post" style="height: 180px;display: flex; flex-direction: column;justify-content: center; align-items: center; width: 22%;border: 1px solid black;">
+        <input type="text" name="name" style="height: 30px;width: 80%; margin-top: 2%;" placeholder="Enter Your name" id="">
+        <input type="text" name="sub" style="height: 30px;width: 80%; margin-top: 2%;" placeholder="Enter Subject" id="">
+        <button type="submit" style="height: 30px;width: 83%; margin-top: 2%;">Submit</button>
+    </form>
+
+    <table border="1" >
+        <thead>
+            <tr align="center">
+                <td>Id</td>
+                <td>Name</td>
+                <td>Subject</td>
+                <td colspan="2">Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <%student.map((el,i)=>{%>
+                <tr align="center">
+                    <td><%=el.id%></td>
+                    <td><%=el.name%></td>
+                    <td><%=el.sub%></td>
+                    <td><a href="/editData/<%=el.id%>"><button>Edit</button></a></td>
+                    <td><a href="/deleteData?id=<%=el.id%>"><button >Delete</button></a></td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+</body>
+</html>
