@@ -11,7 +11,6 @@ app.get("/",(req,res)=>{
 })
 
 app.post("/addData",(req,res)=>{
-    req.body.status="Pending";
     req.body.id=data.length+1;
     // console.log(req.body);
     data.push(req.body)
@@ -44,12 +43,16 @@ app.post("/updateData",(req,res)=>{
     })
 })
 
-app.get("/updateStatus",(req,res)=>{
+app.get("/updateStatus/:id",(req,res)=>{
     // console.log(req.query.id);
-    let task = data.find(item => item.id == req.query.id);
-    if (task) {
-        task.status = task.status === "Complete" ? "Pending" : "Complete";
-    }
+    let task = data.find(item => item.id == req.params.id);
+    task.status=true;
+    data.forEach((el,i)=>{
+        if(el.id== task.id)
+        {
+            data[i]=task;
+        }
+    })
     res.redirect("/")
 });
 

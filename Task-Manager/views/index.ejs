@@ -44,17 +44,21 @@
                     <tr class="border border-gray-700" align="center">
                         <td class="p-3 border border-gray-600"><%= el.id %></td>
                         <td class="p-3 border border-gray-600">
-                            <form action="/updateStatus" method="get">
+                            <!-- <form action="/updateStatus" method="get">
                                 <input type="hidden" name="id" value="<%= el.id %>">
                                 <input type="checkbox" name="status"  value="Complete"  onchange="this.form.submit()"   <% if (el.status === 'Complete') { %> checked <% } %> class="h-5 w-5 text-blue-500 focus:ring focus:ring-blue-500">
-                            </form>
+                            </form> -->
+                            <input type="checkbox" name="status"  class="h-5 w-5 text-blue-500 focus:ring focus:ring-blue-500" onchange="window.location.href='/updateStatus/<%=el.id%>'" 
+                            <%=el.status ? 'checked': '' %>
+                            <%=el.status? 'disabled' : '' %>
+                            >
                         </td>
                         <td class="p-3 border border-gray-600"><%= el.task %></td>
                         <td class="p-3 border border-gray-600 capitalize">
                             <span class="text-white font-bold"><%= el.priority %></span>
                         </td>
                         <td class="p-3 border border-gray-600">
-                            <span class="<%= el.status === 'Complete' ? 'text-green-500' : 'text-yellow-500' %> font-bold"><%= el.status %></span>
+                            <span class="<%= el.status === 'Complete' ? 'text-green-500' : 'text-yellow-500' %> font-bold"><%= el.status?'Complete':'Pending' %></span>
                         </td>
                         <td class="p-3 border border-gray-600">
                             <a href="/editData?id=<%= el.id %>" > <button class="bg-green-500  w-[100%] hover:bg-green-600 text-white p-2 rounded-md transition-all">Edit</button></a>
