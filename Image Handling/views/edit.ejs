@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/updateData" method="post" enctype="multipart/form-data" >
+        <fieldset style="width: 35%; margin: auto; ">
+            <legend>Image handling</legend>
+            <input type="text" name="id" hidden value="<%=data.id%>" id="">
+            <label for="">Name</label>
+            <input type="text" name="name" value="<%=data.name%>" id=""><br/><br/>
+            <label for="">Image</label>
+            <input type="file" name="image" id=""><br/><br/>
+            <img src="<%=data.image%>" height="150px" width="150px" alt=""><br/><br/>
+            <button type="submit">Update Data</button>
+        </fieldset>
+      </form>
+</body>
+</html>
