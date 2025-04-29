@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    
+    <div>
+          
+    <form action="/addData" method="post">
+        <input type="text" name="name" placeholder="Enter Name" id="">
+        <input type="text" name="sub" placeholder="Enter Subject" id="">
+        <input type="text" name="city" placeholder="Enter City" id="">
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+    <table >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>City</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%student.map((el,i)=>{%>
+                <tr>
+                    <td><%=el.name%></td>
+                    <td><%=el.sub%></td>
+                    <td><%=el.city%></td>
+                    <td><a href="/editData?id=<%=el.id%>"><button >Edit</button></a></td>
+                    <td><a href="/deleteData?id=<%=el.id%>"><button>Delete</button></a></td>
+                </tr>
+            <%}) %>
+        </tbody>
+    </table>
+</body>
+</html>
