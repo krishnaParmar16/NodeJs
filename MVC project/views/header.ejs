@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <!-- Header -->
+  <header class="w-full h-20 flex items-center justify-between px-6 md:px-10 border-b border-gray-800 shadow-md bg-[#0f0f0f] fixed top-0 z-50">
+    
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img src="https://www.svgrepo.com/show/364657/clapperboard-movie.svg" alt="Logo" class="w-8 h-8"/>
+      <a href="/" class="text-2xl font-extrabold tracking-wide text-white hover:text-red-500 transition">MovieHub</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="hidden md:flex items-center gap-6 lg:gap-10">
+      <a href="/" class="text-sm hover:text-red-500 transition font-medium">Home</a>
+      <a href="/AddMovieForm" class="text-sm hover:text-red-500 transition font-medium">Add Movie</a>
+      <a href="/popular" class="text-sm hover:text-red-500 transition font-medium">Popular</a>
+      <a href="/latest" class="text-sm hover:text-red-500 transition font-medium">Latest</a>
+    </nav>
+
+    <!-- Search + Profile -->
+    <div class="flex items-center gap-3">
+      <!-- Search -->
+      <input
+        type="text"
+        placeholder="Search..."
+        class="hidden sm:block bg-gray-800 text-sm text-white px-4 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+      />
+
+      <!-- Profile Icon -->
+      <div class="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center text-sm font-bold uppercase shadow-md hover:scale-105 transition">
+        U
+      </div>
+    </div>
+  </header>
+
+  <!-- Add padding to avoid content hiding behind fixed header -->
+  <div class="pt-24"></div>
+
+</body>
+</html>

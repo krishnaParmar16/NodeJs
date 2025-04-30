@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <!-- Header Include -->
+  <%- include("header") %>
+
+  <!-- Movie Grid -->
+  <div class="w-full min-h-screen px-6 py-10">
+    <h1 class="text-3xl font-bold text-yellow-400 mb-8 text-center">🎬 Movie Collection</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <% data.map((el, i) => { %>
+        <div class="bg-[#1f1f1f] rounded-2xl overflow-hidden shadow-md hover:shadow-yellow-500/20 transition-shadow duration-300 flex flex-col">
+          
+          <!-- Movie Poster Image -->
+          <img 
+            src="/<%= el.image %>" 
+            alt="<%= el.name %> Poster" 
+            class="w-full h-56 object-cover"
+          />
+
+          <!-- Movie Info -->
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-yellow-400 mb-1"><%= el.name %></h2>
+              <p class="text-sm text-gray-400">Category: <%= el.catagory %></p>
+              <p class="text-sm text-gray-400">Rating: ⭐ <%= el.rate %>/10</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2 mt-4">
+              <a href="/editData?id=<%= el.id %>" class="w-1/2">
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition">Edit</button>
+              </a>
+              <a href="/deleteData?id=<%= el.id %>" class="w-1/2">
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition">Delete</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+</body>
+</html>
