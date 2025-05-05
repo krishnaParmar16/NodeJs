@@ -9,11 +9,9 @@ const multer = require("./Middleware/multer");
 const path = require("path");
 // for handle file system use fs (core module)
 const fs=require("fs");
-
-app.use("/Images", express.static(path.join(__dirname, 'Images')));
-
-app.set("view engine", "ejs")
 app.use(express.urlencoded({ extended: true }));
+app.use("/Images", express.static(path.join(__dirname, 'Images')));
+app.set("view engine", "ejs")
 
 app.get("/", async (req, res) => {
     await schema.find({}).then((data) => {
@@ -49,12 +47,25 @@ app.get("/editData",async(req,res)=>{
     })
 })
 
-app.post("/updateData",async(req,res)=>{
+app.post("/updateData",multer,async(req,res)=>{
     // console.log(req.body);
     // console.log(req.file);
-    let singalData=await schema.findById(req.body);
-    console.log(singalData);
+
+    let singalData=await schema.findById(req.body.id);
+    let img="";
     
+    if(req.file){
+        img=req.file.path;
+        fs.unlinkSync(singalData.image);
+    }
+    else{
+        img=singalData.image;
+    }
+    req.body.image=img;
+
+    await schema.findByIdAndUpdate(req.body.id,req.body).then(()=>{
+        res.redirect("/");
+    })
 
 })
 
