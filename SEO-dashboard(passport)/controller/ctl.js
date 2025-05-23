@@ -1,5 +1,6 @@
 const schema=require("../model/firstSchema");
 const fs=require("fs");
+const mailer=require("../middelware/mailer");
 
 module.exports.login=(req,res)=>{
     res.render("login");
@@ -72,3 +73,79 @@ module.exports.updateData=async(req,res)=>{
         res.redirect("/ViewAdmin")
     })
 }
+
+module.exports.profile=(req,res)=>{
+    res.render("profile");
+}
+module.exports.changePassword=(req,res)=>{
+    res.render("changePassword");
+}
+
+module.exports.changePasswordData=async(req,res)=>{
+     let admin=req.user;
+    console.log(admin);
+
+    if(admin.password ==  req.body.oldPassword)
+    {
+        if(req.body.oldPassword != req.body.newPassword)
+        {
+            if(req.body.newPassword == req.body.confirmPassword)
+            {
+                // console.log(newPassword);
+                
+                await schema.findByIdAndUpdate(admin.id,{password:req.body.newPassword}).then(()=>{
+                    res.redirect("/logout");
+                })
+            }
+        }
+        else{
+            res.redirect("/changePasswordData");
+        }
+    }
+    else{
+        res.redirect("/changePasswordData");
+    }
+}
+
+module.exports.forgot=(req,res)=>{
+    res.render("forgot");
+}
+
+module.exports.lostPass=async(req,res)=>{
+    // console.log(req.body);
+    let admin=await schema.findOne({email:req.body.email});
+
+    if(!admin)
+    {
+        res.redirect("/");
+    }
+
+    let otp=Math.floor(Math.random()*100000 +800000)
+    // console.log(otp);
+
+    mailer.sendOTP(req.body.email,otp); 
+    req.session.adminData=admin;
+    req.session.otp=otp;
+    res.render("verifyPass");
+}
+
+module.exports.verifyPass=async(req,res)=>{
+    console.log(req.body);
+    let otp=req.session.otp;
+    let admin=req.session.adminData;
+
+    if(otp==req.body.otp)
+    {
+        if(req.body.newPassword == req.body.confirmPassword)
+        {   
+            await schema.findByIdAndUpdate(admin._id,{password:req.body.newPassword});
+            res.redirect("/");
+        }
+        else{
+            req.redirect("/");
+        }
+    }
+    else{
+        res.redirect("/");
+    }
+}   

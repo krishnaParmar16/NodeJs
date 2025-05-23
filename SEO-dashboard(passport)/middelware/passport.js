@@ -1,7 +1,6 @@
 const passport=require("passport");
 const localSt=require("passport-local").Strategy   //localStratagy
 const schema=require("../model/firstSchema");
-const { addAdmin } = require("../controller/ctl");
 
 passport.use("local",new localSt(
     {usernameField:"email"},
@@ -45,6 +44,7 @@ passport.deserializeUser(async(adminId,done)=>{
 passport.check=(req,res,next)=>{
     if(req.isAuthenticated())
     {
+        res.locals.admin=req.user;
         next();
     }
     else{

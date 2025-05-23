@@ -11,6 +11,7 @@ app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"public")))
 app.use("/image",express.static(path.join(__dirname,"image")));
+app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
 app.use(session({
     name:"local",
@@ -24,6 +25,9 @@ app.use(passport.session());
 app.use(passport.initialize());
 
 app.use("/",require("./routes/route"));
+app.use("/category",require("./routes/category"));
+app.use("/SubCategory",require("./routes/SubCategory"));
+app.use("/product",require("./routes/product"));
 
 app.listen(port,(err)=>{
     err?console.log(err):console.log("server started on the port:"+port);
